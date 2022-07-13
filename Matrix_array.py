@@ -22,12 +22,17 @@ class Matrix_array:
         self.__elements = row_elements * column_elements
         self.__r_prime = np.zeros((3,self.__elements))
 
+        # place all microphone elements at the right position
         element_index = 0
         for i in range(row_elements):
             for j in range(column_elements):
-                self.__r_prime[0][element_index] = i*self.__uni_distance + r_a[0]
-                self.__r_prime[1][element_index] = j*self.__uni_distance + r_a[1]
+                self.__r_prime[0,element_index] = i*self.__uni_distance + r_a[0]
+                self.__r_prime[1,element_index] = j*self.__uni_distance + r_a[1]
                 element_index += 1
+        
+        # center matrix in origin (0,0)
+        self.__r_prime[0,:] = self.__r_prime[0,:] - self.__row_elements*self.__uni_distance/2 + self.__uni_distance/2
+        self.__r_prime[1,:] = self.__r_prime[1,:] - self.__column_elements*self.__uni_distance/2 + self.__uni_distance/2
     
 
     def get_r_prime(self):
